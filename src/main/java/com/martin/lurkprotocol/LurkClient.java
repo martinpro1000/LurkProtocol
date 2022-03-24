@@ -5,13 +5,21 @@ import io.netty.channel.*;
 import io.netty.util.*;
 
 import java.nio.charset.*;
+import java.util.*;
 
-public class LurkClient extends ChannelInboundHandlerAdapter {
+public class LurkClient extends SimpleChannelInboundHandler<Object> {
 
     @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        ByteBuf byteBuf = (ByteBuf) msg;
-        System.out.println(byteBuf.toString(CharsetUtil.UTF_8));
-        ctx.writeAndFlush("Thanks for the test server! Lp :)");
+    protected void channelRead0(ChannelHandlerContext channelHandlerContext, Object o) throws Exception {
+        ByteBuf byteBuf = (ByteBuf) o;
+        System.out.println(byteBuf.getByte(0));
+        if(byteBuf.getByte(0) == 11) {
+            System.out.println("true!");
+
+            byteBuf.readerIndex(7);
+            while(byteBuf.isReadable()) {
+                System.out.print((char) byteBuf.readByte());
+            }
+        }
     }
 }

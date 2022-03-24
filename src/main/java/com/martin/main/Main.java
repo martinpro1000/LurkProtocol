@@ -25,7 +25,8 @@ public class Main {
                     pipeline.addLast(new LurkClient());
                 }
             });
-            bootstrap.connect(new InetSocketAddress("isoptera.lcsc.edu", 5190)).sync().channel().closeFuture().sync();
+            Channel ch = bootstrap.connect(new InetSocketAddress("isoptera.lcsc.edu", 5190)).sync().channel();
+            ch.closeFuture().sync();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
