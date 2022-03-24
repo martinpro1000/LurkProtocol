@@ -14,7 +14,6 @@ public class LurkClient extends SimpleChannelInboundHandler<Object> {
         ByteBuf byteBuf = (ByteBuf) o;
         System.out.println(byteBuf.getByte(0));
         if(byteBuf.getByte(0) == 11) {
-            System.out.println("true!");
 
             byteBuf.readerIndex(7);
             while(byteBuf.isReadable()) {
