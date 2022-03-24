@@ -10,6 +10,8 @@ public class LurkClient extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        System.out.println(msg);
+        ByteBuf byteBuf = (ByteBuf) msg;
+        System.out.println(byteBuf.toString(CharsetUtil.UTF_8));
+        ctx.writeAndFlush("Thanks for the test server! Lp :)");
     }
 }
